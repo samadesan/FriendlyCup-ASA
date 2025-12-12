@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -33,6 +35,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    /**
+     * @var Collection<int, Torneo>
+     */
+    #[ORM\OneToMany(targetEntity: Torneo::class, mappedBy: 'organizador')]
+    private Collection $torneos;
+
+    public function __construct()
+    {
+        $this->torneos = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -102,5 +115,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials(): void
     {
         // @deprecated, to be removed when upgrading to Symfony 8
+    }
+
+    /**
+     * @return Collection<int, Torneo>
+     */
+    public function getTorneos(): Collection
+    {
+        return $this->torneos;
+    }
+
+    public function addTorneo(Torneo $torneo): static
+    {
+        if (!$this->torneos->contains($torneo)) {
+            $this->torneos->add($torneo);
+            $torneo->setOrganizador($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTorneo(Torneo $torneo): static
+    {
+        if ($this->torneos->removeElement($torneo)) {
+            // set the owning side to null (unless already changed)
+            if ($torneo->getOrganizador() === $this) {
+                $torneo->setOrganizador(null);
+            }
+        }
+
+        return $this;
     }
 }
