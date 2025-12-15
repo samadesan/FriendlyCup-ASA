@@ -43,6 +43,9 @@ class Torneo
     #[ORM\OneToMany(targetEntity: LigaFantasy::class, mappedBy: 'torneo')]
     private Collection $ligaFantasies;
 
+    #[ORM\Column]
+    private ?int $seguidores = null;
+
     public function __construct()
     {
         $this->equipos = new ArrayCollection();
@@ -177,6 +180,18 @@ class Torneo
                 $ligaFantasy->setTorneo(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSeguidores(): ?int
+    {
+        return $this->seguidores;
+    }
+
+    public function setSeguidores(int $seguidores): static
+    {
+        $this->seguidores = $seguidores;
 
         return $this;
     }
