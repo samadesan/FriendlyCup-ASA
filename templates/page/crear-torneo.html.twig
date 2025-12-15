@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Free Web tutorials">
-    <meta name="keywords" content="HTML, CSS, JavaScript">
-    <meta name="author" content="Samuel Aded">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FriendlyCup</title>
-</head>
-<body>
+{% extends 'base.html.twig' %}
+{% block body %}
 <div class="web">
     <nav class="navigator-bar">
         <ul>
@@ -40,5 +31,4 @@
     <p>&copy; Samuel Aded, Abel Sabater, Álvaro Ruiz - FriendlyCup</p>
     <p>Todos los derechos reservados</p>
 </footer>
-</body>
-</html>
+{% endblock %}

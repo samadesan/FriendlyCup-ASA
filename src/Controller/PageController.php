@@ -18,14 +18,14 @@ final class PageController extends AbstractController
     #[Route('/torneo', name: 'torneo')]
     public function ligas(): Response
     {
-        return $this->render('page/index.html.twig', [
+        return $this->render('page/torneros.html.twig', [
             'controller_name' => 'PageController',
         ]);
     }
     #[Route('/creaciontorneo', name: 'creaciontorneo')]
     public function creacionligas(): Response
     {
-        return $this->render('page/index.html.twig', [
+        return $this->render('page/crear-torneo.html.twig', [
             'controller_name' => 'PageController',
         ]);
     }
