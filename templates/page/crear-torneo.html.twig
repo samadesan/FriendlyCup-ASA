@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Free Web tutorials">
-    <meta name="keywords" content="HTML, CSS, JavaScript">
-    <meta name="author" content="Samuel Aded">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FriendlyCup</title>
-</head>
-<body>
-<div class="web">
+{% extends base.html.twig %}
+{% block title %} Crear Torneo {% endblock title %}
+{% block body %}
     <nav class="navigator-bar">
         <ul>
             <li class="logoFC"><a href="#"><img src="../../public/img/logo.png" alt="friendlyLogo"></a></li>
@@ -35,10 +26,4 @@
 
         </section>
     </div>
-</div>
-<footer>
-    <p>&copy; Samuel Aded, Abel Sabater, Álvaro Ruiz - FriendlyCup</p>
-    <p>Todos los derechos reservados</p>
-</footer>
-</body>
-</html>
+{% endblock %}
