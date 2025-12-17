@@ -1,38 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block title %} Inicio {% endblock title %}
 {% block body %}
-   <nav class="navigator-bar">
-        <div class="nav-content">
-            <div class="logoFC">
-                <img src="img/logo.png" alt="FriendlyCup Logo" class="main-logo">
-            </div>
-            <div class="search-container">
-                <input type="text" placeholder="Buscar torneos">
-            </div>
-            <div class="nav-buttons">
-                <a href="{{ path('crear-torneo') }}" class="btn-cta">Crear torneo (CTA)</a>
-                <nav id="navLogin">
-                    {% if app.user %}
-                        <button class="btn-secondary"><a href="{{ path('app_logout') }}">
-                            {{ app.user.name }} - Cerrar Sesión
-                        </a></button>
-                    {% else %}
-                        <button class="btn-secondary">
-                            <a href="{{ path('app_login') }}">Iniciar Sesión</a>
-                        </button>
-                        <button class="btn-secondary">
-                            <a href="{{ path('app_register') }}">Registrarse</a>
-                        </button>
-                    {% endif %}
-                </nav>
-            </div>
-        </div>
-    </nav>
-
     <section class="hero-section">
         <div class="hero-content">
             <h1>Crea tu torneo<br>en 2 minutos</h1>
-            <a href="#" class="hero-cta">CTA: Nuevo torneo</a>
+            <a href="{{ path('crear-torneo') }}" class="hero-cta">Nuevo torneo</a>
         </div>
     </section>
 

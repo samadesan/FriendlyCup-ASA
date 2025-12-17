@@ -1,22 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
-    <meta charset="UTF-8">
-    <meta name="description" content="Free Web tutorials">
-    <meta name="keywords" content="HTML, CSS, JavaScript">
-    <meta name="author" content="Samuel Aded">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FriendlyCup</title>
-</head>
-<body>
-<div class="web">
-    {% block body %}
-    {% endblock %}
-</div>
-<footer>
-    <p>&copy; Samuel Aded, Abel Sabater, Álvaro Ruiz - FriendlyCup</p>
-    <p>Todos los derechos reservados</p>
-</footer>
-</body>
+    <head>
+    <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
+        <meta charset="UTF-8">
+        <meta name="description" content="Free Web tutorials">
+        <meta name="keywords" content="HTML, CSS, JavaScript">
+        <meta name="author" content="Samuel Aded">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>FriendlyCup</title>
+    </head>
+    <body>
+        <div class="web">
+            <nav class="navigator-bar">
+                <div class="nav-content">
+                    <div class="logoFC">
+                        <a href={{ path('inicio') }}><img src="img/logo.png" alt="FriendlyCup Logo" class="main-logo"></a>
+                    </div>
+                    <div class="search-container">
+                        <input type="text" placeholder="Buscar torneos">
+                    </div>
+                    <div class="nav-buttons">
+                        <nav id="navLogin">
+                            <button class="btn-secondary"><a href="{{ path('crear-torneo') }}">Crear torneo</a></button>
+                            {% if app.user %}
+                                <button class="btn-secondary"><a href="{{ path('app_logout') }}">
+                                        {{ app.user.name }} - Cerrar Sesión
+                                    </a></button>
+                            {% else %}
+                                <button class="btn-secondary">
+                                    <a href="{{ path('app_login') }}">Iniciar Sesión</a>
+                                </button>
+                                <button class="btn-secondary">
+                                    <a href="{{ path('app_register') }}">Registrarse</a>
+                                </button>
+                            {% endif %}
+                        </nav>
+                    </div>
+                </div>
+            </nav>
+            {% block body %}
+            {% endblock %}
+        </div>
+        <footer>
+            <div>
+                <p>&copy; Samuel Aded, Abel Sabater y Álvaro Ruiz - FriendlyCup</p>
+                <p>Todos los derechos reservados</p>
+            </div>
+        </footer>
+    </body>
 </html>

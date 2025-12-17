@@ -1,4 +1,4 @@
-{% extends base.html.twig %}
+{% extends 'base.html.twig' %}
 {% block title %} Crear Torneo {% endblock title %}
 {% block body %}
     <nav class="navigator-bar">
@@ -12,7 +12,7 @@
     <section class="hero-section">
         <div class="hero-text">
             <h1>¡Crea tu torneo YA en 2 minutos!</h1>
-            <button type="button"><a href="crear-torneo.html"></a>Crear Torneo</button>
+            <button type="button"><a href="{{ path('crear-torneo') }}">Crear Torneo</a></button>
         </div>
     </section>
     <div class="main-container">
