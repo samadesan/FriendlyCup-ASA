@@ -94,6 +94,7 @@ final class PageController extends AbstractController
             'formulario' => $formulario->createView()
         ]);
     }
+    
     #[Route('/fantasy', name: 'fantasy')]
     public function fantasy(): Response
     {
