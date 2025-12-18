@@ -25,6 +25,10 @@ final class PageController extends AbstractController
     #[Route('/creaciontorneo', name: 'crear-torneo')]
     public function creacionligas(): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        
         return $this->render('page/crear-torneo.html.twig', [
             'controller_name' => 'PageController',
         ]);
@@ -32,6 +36,10 @@ final class PageController extends AbstractController
     #[Route('/fantasy', name: 'fantasy')]
     public function fantasy(): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
         return $this->render('page/index.html.twig', [
             'controller_name' => 'PageController',
         ]);
@@ -39,6 +47,9 @@ final class PageController extends AbstractController
     #[Route('/creacionfantasy', name: 'creacionfantasy')]
     public function creacionfantasy(): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         return $this->render('page/index.html.twig', [
             'controller_name' => 'PageController',
         ]);

@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block title %}Login{% endblock %}
 {% block body %}
-<<<<<<< HEAD
     <div class="login-page">
         <h1>Inicia tu sesión</h1>
         <p>Si tus datos son incorrectos, asegúrate de que ya te has registrado.</p>
@@ -26,22 +25,4 @@
             </form>
         </div>
     </div>
-=======
-{% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-
-    <form action="{{ path('app_login') }}" method="post">
-        <label for="username">Email:</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}"/>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="_password"/>
-
-        {# If you want to control the URL the user is redirected to on success
-        <input type="hidden" name="_target_path" value="/account"/> #}
-
-        <button type="submit">login</button>
-    </form>
->>>>>>> origin/main
 {% endblock %}

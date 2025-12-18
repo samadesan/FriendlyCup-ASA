@@ -48,6 +48,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: EquipoFantasy::class, mappedBy: 'entrenador')]
     private Collection $equipoFantasies;
 
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $foto = null;
+
     public function __construct()
     {
         $this->torneos = new ArrayCollection();
@@ -180,6 +186,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $equipoFantasy->setEntrenador(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getFoto(): ?string
+    {
+        return $this->foto;
+    }
+
+    public function setFoto(?string $foto): static
+    {
+        $this->foto = $foto;
 
         return $this;
     }
