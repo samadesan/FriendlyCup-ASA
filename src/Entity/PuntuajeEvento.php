@@ -22,6 +22,9 @@ class PuntuajeEvento
     #[ORM\Column]
     private ?int $puntos = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $evento = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class PuntuajeEvento
     public function setPuntos(int $puntos): static
     {
         $this->puntos = $puntos;
+
+        return $this;
+    }
+
+    public function getEvento(): ?string
+    {
+        return $this->evento;
+    }
+
+    public function setEvento(string $evento): static
+    {
+        $this->evento = $evento;
 
         return $this;
     }

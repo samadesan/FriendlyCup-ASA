@@ -31,6 +31,9 @@ class Equipos
     #[ORM\OneToOne(mappedBy: 'equipo1', cascade: ['persist', 'remove'])]
     private ?Disputas $disputas = null;
 
+    #[ORM\Column]
+    private ?int $puntos = null;
+
     public function __construct()
     {
         $this->jugadores = new ArrayCollection();
@@ -74,7 +77,7 @@ class Equipos
         return $this->jugadores;
     }
 
-    public function addJugadore(Jugadores $jugadore): static
+    public function addJugadores(Jugadores $jugadore): static
     {
         if (!$this->jugadores->contains($jugadore)) {
             $this->jugadores->add($jugadore);
@@ -131,6 +134,18 @@ class Equipos
                 $disputa->setEquipo2(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPuntos(): ?int
+    {
+        return $this->puntos;
+    }
+
+    public function setPuntos(int $puntos): static
+    {
+        $this->puntos = $puntos;
 
         return $this;
     }
