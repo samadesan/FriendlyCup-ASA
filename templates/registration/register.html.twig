@@ -1,19 +1,39 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Register{% endblock %}
-
 {% block body %}
-    <h1>Register</h1>
+    <div class="register-page">
+        <h1>Regístrate</h1>
 
-    {{ form_errors(registrationForm) }}
+        <p>Regístrate, si eres nuevo. </p>
+        <p>Asegúrate antes de haber iniciado sesión. Si ya la iniciaste no hace falta que hagas este paso.</p>
+        <p>Dale a <i>"Iniciar sesión"</i> para entrar con tu cuenta.</p>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+        <div>
+            {{ form_errors(registrationForm) }}
+            {{ form_start(registrationForm) }}
+            <p>
+                {{ form_row(registrationForm.name, {
+                    label: 'Nombre Completo'
+                }) }}
+            </p>
+            <p>
+                {{ form_row(registrationForm.email, {
+                    label: 'Email / Correo electrónico'
+                }) }}
+            </p>
+            <p>
+                {{ form_row(registrationForm.plainPassword, {
+                    label: 'Contraseña'
+                }) }}
+            </p>
+            <p>
+                {{ form_row(registrationForm.agreeTerms, {
+                    label: 'Estoy de acuerdo con los terminos'
+                }) }}
+            </p>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+            <button type="submit" class="btn">Registrarse</button>
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
 {% endblock %}
