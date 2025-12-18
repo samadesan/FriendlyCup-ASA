@@ -9,11 +9,8 @@
 /* Estilos Generales */
 body {
     font-family: Arial, sans-serif;
-    backdrop-filter: blur(50px);
     color: #ffffff;
     margin: 0;
-}
-.web{
     background: radial-gradient(#0c314d, #0e1726, #0e1726, #043f29);
     background-size: 200% 200%;
     backdrop-filter: blur(10px);
@@ -143,9 +140,10 @@ hr {
 .card {
     border: 1px solid #939393;
     padding: 15px;
-    display: flex;
     gap: 15px;
+    display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .card-img {
