@@ -1,3 +1,3 @@
-function crearJugador() {
+function crearEquipo() {
     
 }
