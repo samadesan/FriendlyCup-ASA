@@ -19,7 +19,7 @@ class Jugadores
     private ?string $nombre = null;
 
     #[ORM\Column]
-    private ?int $estadisticas = null;
+    private ?int $estadisticas = 0;
 
     #[ORM\ManyToOne(inversedBy: 'jugadores')]
     private ?Equipos $equipo = null;

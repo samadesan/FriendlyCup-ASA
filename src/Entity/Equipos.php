@@ -32,7 +32,7 @@ class Equipos
     private ?Disputas $disputas = null;
 
     #[ORM\Column]
-    private ?int $puntos = null;
+    private ?int $puntos = 0;
 
     public function __construct()
     {
