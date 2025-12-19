@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20251218172540 extends AbstractMigration
+final class Version20251219085653 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -22,10 +22,10 @@ final class Version20251218172540 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE disputas (id INT AUTO_INCREMENT NOT NULL, resultado VARCHAR(255) NOT NULL, equipo1_id INT NOT NULL, equipo2_id INT NOT NULL, torneo_id INT NOT NULL, UNIQUE INDEX UNIQ_E13A0DFC8D588AD (equipo1_id), INDEX IDX_E13A0DFC1A602743 (equipo2_id), INDEX IDX_E13A0DFCA0139802 (torneo_id), PRIMARY KEY (id)) DEFAULT CHARACTER SET utf8');
         $this->addSql('CREATE TABLE equipo_fantasy (id INT AUTO_INCREMENT NOT NULL, puntos INT NOT NULL, ligafantasy_id INT DEFAULT NULL, entrenador_id INT DEFAULT NULL, jugadores_id INT DEFAULT NULL, INDEX IDX_5D0D50218B2F69BF (ligafantasy_id), INDEX IDX_5D0D50214FE90CDB (entrenador_id), INDEX IDX_5D0D5021900BE3B3 (jugadores_id), PRIMARY KEY (id)) DEFAULT CHARACTER SET utf8');
-        $this->addSql('CREATE TABLE equipos (id INT AUTO_INCREMENT NOT NULL, nombre VARCHAR(255) NOT NULL, torneo_id INT NOT NULL, INDEX IDX_8C188AD0A0139802 (torneo_id), PRIMARY KEY (id)) DEFAULT CHARACTER SET utf8');
+        $this->addSql('CREATE TABLE equipos (id INT AUTO_INCREMENT NOT NULL, nombre VARCHAR(255) NOT NULL, puntos INT NOT NULL, torneo_id INT NOT NULL, INDEX IDX_8C188AD0A0139802 (torneo_id), PRIMARY KEY (id)) DEFAULT CHARACTER SET utf8');
         $this->addSql('CREATE TABLE jugadores (id INT AUTO_INCREMENT NOT NULL, nombre VARCHAR(255) NOT NULL, estadisticas INT NOT NULL, equipo_id INT DEFAULT NULL, INDEX IDX_CF491B7623BFBED (equipo_id), PRIMARY KEY (id)) DEFAULT CHARACTER SET utf8');
         $this->addSql('CREATE TABLE liga_fantasy (id INT AUTO_INCREMENT NOT NULL, nombre VARCHAR(255) NOT NULL, puntuaje INT NOT NULL, torneo_id INT DEFAULT NULL, INDEX IDX_47E3DA2A0139802 (torneo_id), PRIMARY KEY (id)) DEFAULT CHARACTER SET utf8');
-        $this->addSql('CREATE TABLE puntuaje_evento (id INT AUTO_INCREMENT NOT NULL, puntos INT NOT NULL, disputa_id INT DEFAULT NULL, jugador_id INT DEFAULT NULL, INDEX IDX_AFD56FE448D6EBE2 (disputa_id), INDEX IDX_AFD56FE4B8A54D43 (jugador_id), PRIMARY KEY (id)) DEFAULT CHARACTER SET utf8');
+        $this->addSql('CREATE TABLE puntuaje_evento (id INT AUTO_INCREMENT NOT NULL, puntos INT NOT NULL, evento VARCHAR(255) NOT NULL, disputa_id INT DEFAULT NULL, jugador_id INT DEFAULT NULL, INDEX IDX_AFD56FE448D6EBE2 (disputa_id), INDEX IDX_AFD56FE4B8A54D43 (jugador_id), PRIMARY KEY (id)) DEFAULT CHARACTER SET utf8');
         $this->addSql('CREATE TABLE torneo (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, tipo VARCHAR(255) NOT NULL, seguidores INT NOT NULL, imagen VARCHAR(255) DEFAULT NULL, organizador_id INT NOT NULL, INDEX IDX_7CEB63FEE3445778 (organizador_id), PRIMARY KEY (id)) DEFAULT CHARACTER SET utf8');
         $this->addSql('CREATE TABLE `user` (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, name VARCHAR(255) NOT NULL, foto VARCHAR(255) DEFAULT NULL, UNIQUE INDEX UNIQ_IDENTIFIER_EMAIL (email), PRIMARY KEY (id)) DEFAULT CHARACTER SET utf8');
         $this->addSql('CREATE TABLE user_torneo (user_id INT NOT NULL, torneo_id INT NOT NULL, INDEX IDX_19B978C3A76ED395 (user_id), INDEX IDX_19B978C3A0139802 (torneo_id), PRIMARY KEY (user_id, torneo_id)) DEFAULT CHARACTER SET utf8');

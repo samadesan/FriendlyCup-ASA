@@ -45,7 +45,7 @@ final class PageController extends AbstractController
             $entityManager->flush(); 
             return $this->redirectToRoute('torneo', ["id" => $torneo->getId()]);
         }
-        return $this->render('page/crear-torneo.html.twig', [
+        return $this->render('page/editar-torneo.html.twig', [
             'formulario' => $formulario->createView(),
             'torneo' => $torneo
         ]);
@@ -62,39 +62,6 @@ final class PageController extends AbstractController
             $entityManager->flush();
         }
         return $this->redirectToRoute('inicio');
-    }
-    #[Route('/torneo/{id}', name: 'torneo')]
-    public function ligas(int $id,ManagerRegistry $doctrine): Response
-    {
-        $repositorio = $doctrine->getRepository(Torneo::class);
-        $torneo=$repositorio->find($id);
-        $admin=$torneo->getOrganizador();
-        return $this->render('page/torneos.html.twig', [
-            'torneo' => $torneo,
-            'admin'  => $admin,
-        ]);
-    }
-    #[Route('/equipo/guardar', name: 'equipo_guardar', methods: ['POST'])]
-    public function guardar(Request $request, EntityManagerInterface $em,TorneoRepository $torneoRepo): JsonResponse
-    {
-        $data = json_decode($request->getContent(), true);
-        $equipo = new Equipos();
-        $equipo->setNombre($data['nombre']);
-        $equipo->setPuntos(0);
-
-        $torneoId = $data['torneoId'] ?? null;
-        $torneo = $torneoRepo->find($torneoId);
-        $equipo->setTorneo($torneo);
-
-        foreach ($data['jugadores'] as $nombreJugador) {
-            $jugador = new Jugadores();
-            $jugador->setNombre($nombreJugador);
-            $jugador->setEstadisticas(0);
-            $equipo->addJugadores($jugador);
-        }
-        $em->persist($equipo);
-        $em->flush();
-        return new JsonResponse(['status' => 'success', 'id' => $equipo->getId()]);
     }
     #[Route('/creaciontorneo', name: 'crear-torneo')]
     public function creacionligas(ManagerRegistry $doctrine, Request $request): Response
@@ -120,6 +87,41 @@ final class PageController extends AbstractController
             'formulario' => $formulario->createView()
         ]);
     }
+    #[Route('/torneo/{id}', name: 'torneo')]
+    public function ligas(int $id,ManagerRegistry $doctrine): Response
+    {
+        $repositorio = $doctrine->getRepository(Torneo::class);
+        $torneo=$repositorio->find($id);
+        $admin=$torneo->getOrganizador();
+        return $this->render('page/torneos.html.twig', [
+            'torneo' => $torneo,
+            'admin'  => $admin,
+        ]);
+    }
+    
+    #[Route('/equipo/guardar', name: 'equipo_guardar', methods: ['POST'])]
+    public function guardar(Request $request, EntityManagerInterface $em,TorneoRepository $torneoRepo): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        $equipo = new Equipos();
+        $equipo->setNombre($data['nombre']);
+        $equipo->setPuntos(0);
+
+        $torneoId = $data['torneoId'] ?? null;
+        $torneo = $torneoRepo->find($torneoId);
+        $equipo->setTorneo($torneo);
+
+        foreach ($data['jugadores'] as $nombreJugador) {
+            $jugador = new Jugadores();
+            $jugador->setNombre($nombreJugador);
+            $jugador->setEstadisticas(0);
+            $equipo->addJugadores($jugador);
+        }
+        $em->persist($equipo);
+        $em->flush();
+        return new JsonResponse(['status' => 'success', 'id' => $equipo->getId()]);
+    }
+    
 
     #[Route('/fantasy', name: 'fantasy')]
     public function fantasy(): Response
