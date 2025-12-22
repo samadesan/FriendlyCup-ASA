@@ -17,7 +17,7 @@ class TorneoFormType extends AbstractType
         $builder
             ->add('name')
             ->add('tipo')
-            ->add('save', SubmitType::class, array('label' => 'Enviar'));
+            ->add('save', SubmitType::class, array('label' => 'Enviar'))
         ;
     }
 

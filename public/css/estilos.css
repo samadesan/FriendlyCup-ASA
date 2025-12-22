@@ -15,6 +15,22 @@ body {
     background-size: 200% 200%;
     backdrop-filter: blur(10px);
 }
+/* Titulo */
+.fc-title {
+    width: auto;
+    height: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #cdc832;
+    font-size: 50pt;
+    p {
+        font-size: 20pt;
+        color: white;
+    }
+}
+
 /* --- Control del Logo --- */
 .main-logo {
     height: 50px; 
@@ -167,8 +183,8 @@ hr {
     justify-content: center;
     font-size: 10px;
 }
-/* Register y login */
-.register-page, .login-page {
+/* Register y login, creación de torneo */
+.register-page, .login-page, .crear-torneo, .crear-equipo, .crear-jugador, .editar-equipo, .editar-torneo, .editar-jugador{
     margin: 12px 0;
     padding: 174px 0;
     display: flex;
@@ -180,8 +196,10 @@ hr {
     div {
         padding: 0 10px;
         input, button {
+            text-decoration: initial;
             display: inline-block;
-            padding: 6px    ;
+            padding: 6px;
+            margin: 11px 20px;
             border: 2px solid #939393;
             border-radius: 50px;
             text-decoration: none;
@@ -189,7 +207,23 @@ hr {
             color: white;
             background: #043f29;
         }
+        #cancelar {
+            color: #fff;
+            text-decoration: initial;
+            display: inline-block;
+            padding: 6px;
+            margin: 11px 20px;
+            border: 2px solid #939393;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            background: #3f0404;
+        }
     }
+}
+.botones-accion a{
+    color: #fff;
+    text-decoration: initial;
 }
 
 /* Footer */

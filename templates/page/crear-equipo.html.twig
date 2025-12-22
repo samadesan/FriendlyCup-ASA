@@ -1,10 +1,15 @@
 {% extends 'base.html.twig' %}
 {% block title %}Crear Equipo{% endblock title %}
 {% block body %}
-    <h2>Crear Equipo</h2>
+    <div class="crear-equipo">
+            <h2>Crear Equipo</h2>
             <hr>
             {{ form_start(formulario, {'attr': {'id': 'formTorneo'}}) }}
             {{ form_end(formulario) }}
-            <a href="{{ path('inicio') }}">Cancelar</a>
+            <div class="botones-accion">
+                    <button id="cancelar"><a href="{{ path('inicio') }}">Cancelar</a></button>
+            </div>
+
             <div id="equipos"></div>
+    </div>
 {% endblock %}
