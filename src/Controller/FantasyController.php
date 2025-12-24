@@ -24,6 +24,10 @@ final class FantasyController extends AbstractController
     #[Route('/crear-fantasy/{id}', name: 'fantasycrear')]
     public function crearDesdeTorneo(Request $request, Torneo $torneo): Response
     {
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
         $liga = new LigaFantasy();
         $liga->setTorneo($torneo);
         $liga->setPuntuaje(0);
@@ -34,7 +38,7 @@ final class FantasyController extends AbstractController
             $miEquipo = new EquipoFantasy();
             $miEquipo->setEntrenador($this->getUser());
             $miEquipo->setLigafantasy($liga);
-            $miEquipo->setPresupuesto(100000000); // 100M
+            $miEquipo->setPresupuesto(100000000); 
             $miEquipo->setPuntos(0);
             $miEquipo->setDatosAlineacion([
                 'titulares' => [],
@@ -59,17 +63,20 @@ final class FantasyController extends AbstractController
             'entrenador' => $user,
             'ligafantasy' => $liga
         ]);
-        if (!$miEquipo) return $this->redirectToRoute('app_crear_equipo');
         $idsMisJugadores = array_merge($miEquipo->getDatosAlineacion()['titulares'], $miEquipo->getDatosAlineacion()['suplentes']);
         $misJugadoresObjs = empty($idsMisJugadores) ? [] : $this->jugadoresRepo->findBy(['id' => $idsMisJugadores]);
         $todosLosJugadores = $this->jugadoresRepo->findAll();
         $mercado = $miEquipo->getLigafantasy()->filtrarJugadoresLibres($todosLosJugadores);
+        $equiposEnLiga = $this->equipoRepo->findBy([
+        'ligafantasy' => $liga
+        ]);
         return $this->render('fantasy/index.html.twig', [
             'liga' => $liga, 
             'equipo' => $miEquipo,
             'misJugadores' => $misJugadoresObjs,
             'mercado' => $mercado,
-            'datosAlineacion' => $miEquipo->getDatosAlineacion()
+            'datosAlineacion' => $miEquipo->getDatosAlineacion(),
+            'equiposEnLiga' => $equiposEnLiga
         ]);
     }
 }

@@ -144,7 +144,10 @@ final class PageController extends AbstractController
         }
         return $this->render('page/editar-equipo.html.twig', [
             'formulario' => $formulario->createView(),
-            'equipo' => $equipo
+            'equipo' => $equipo,
+            'torneo'=>$equipo->getTorneo(),
+            'jugadores'=>$equipo->getJugadores()
+
         ]);
     }
     #[Route('/equipo/delete/{id}', name: 'equipoeliminado')]
@@ -156,7 +159,7 @@ final class PageController extends AbstractController
             $entityManager->remove($equipo);
             $entityManager->flush();
         }
-        return $this->redirectToRoute('inicio');
+        return $this->redirectToRoute('equipo');
     }
     #[Route('/equipo/{id}', name: 'equipo')]
     public function verEquipo(int $id,ManagerRegistry $doctrine): Response {

@@ -9,7 +9,6 @@
 <div class="campo-futbol">
     <h3>Titulares</h3>
     {% for jugador in misJugadores %}
-        {# Comprobamos si el ID de este jugador está en la lista de titulares del JSON #}
         {% if jugador.id in datosAlineacion.titulares %}
             <div class="jugador-card titular">
                 {{ jugador.nombre }}
@@ -31,4 +30,13 @@
         {% endif %}
     {% endfor %}
 </div>
+<h2>Equipos en esta liga:</h2>
+<ul>
+{% for equipo in equiposEnLiga %}
+    <li>
+        {{ equipo.entrenador.name }} - Puntos: {{ equipo.puntos }}
+    </li>
+{% endfor %}
+<div class="mercado"></div>
+</ul>
 {% endblock %}
