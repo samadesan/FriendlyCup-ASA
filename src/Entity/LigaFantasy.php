@@ -37,9 +37,24 @@ class LigaFantasy
     #[ORM\JoinColumn(nullable: true)]
     private ?User $administrador = null;
 
+    #[ORM\Column(type:"integer", nullable:true)]
+    private $cierredemercado;
+
+
     public function __construct()
     {
         $this->equipoFantasies = new ArrayCollection();
+    }
+
+    public function getCierredemercado(): ?int
+    {
+        return $this->cierredemercado;
+    }
+
+    public function setCierredemercado(int $cierredemercado): self
+    {
+        $this->cierredemercado = $cierredemercado;
+        return $this;
     }
 
     public function getAdministrador(): ?User

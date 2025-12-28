@@ -10,6 +10,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class LigaFantasyFormType extends AbstractType
 {
@@ -23,15 +24,23 @@ class LigaFantasyFormType extends AbstractType
                 'attr' => ['class' => 'form-control']
             ])
             ->add('presupuestoInicial', IntegerType::class, [
-            'mapped' => false, // 👈 NO se guarda en la entidad Fantasy
+            'mapped' => false, 
             'label' => 'Presupuesto inicial',
             'required' => true,
+            ])
+            ->add('segundosMercado', IntegerType::class, [
+                'mapped' => false,
+                'label' => 'Duración del mercado (segundos)',
+                'attr' => [
+                    'min' => 1,
+                    'placeholder' => 'Ej: 3600 (1 hora)'
+                ],
+                'required' => true,
             ])
             ->add('crear', SubmitType::class, [
                 'label' => 'Crear Competición',
                 'attr' => ['class' => 'btn btn-primary mt-3']
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

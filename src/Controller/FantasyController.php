@@ -33,10 +33,13 @@ final class FantasyController extends AbstractController
         $liga->setTorneo($torneo);
         $liga->setPuntuaje(0);
         $liga->setAdministrador($user);
+        
         $form = $this->createForm(LigaFantasyFormType::class, $liga);
         
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $segundos = (int) $form->get('segundosMercado')->getData();;
+            $liga->setCierredemercado($segundos);
             $this->em->persist($liga);
             $miEquipo = new EquipoFantasy();
             $miEquipo->setEntrenador($this->getUser());
