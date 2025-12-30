@@ -6,16 +6,16 @@
 <h1>Equipo: {{ equipo.entrenador.name }}</h1>
 <h2>Presupuesto: <span id="budget" data-valor="{{ equipo.presupuesto }}" data-id="{{ equipo.id }}">{{ equipo.presupuesto | number_format }}</span> €</h2>
 
-<div class="campo-futbol">
+<div class="jugadores">
     <h3>Mis jugadores</h3>
     {% for jugador in misJugadores %}
-        {% if jugador.id in datosAlineacion.titulares %}
-            <div class="jugador-card titular">
-                {{ jugador.nombre }}
-                <button onclick="cambiarPosicion({{ equipo.id }}, {{ jugador.id }})">Banquillo</button>
-            </div>
-        {% endif %}
-    {% endfor %}
+    <div class="jugador-card titular">
+        Jugador: {{jugador.nombre}} Puntos: {{jugador.estadisticas}} Valor de mercado: {{jugador.valordemercado}}
+        <button class="vender" onclick="vender({{ equipo.id }}, {{ jugador.id }})">
+            Vender
+        </button>
+    </div>
+{% endfor %}
 </div>
 <h2>Equipos en esta liga:</h2>
 <ul>
@@ -29,7 +29,7 @@
 <div class="mercado">
     {% for jugador in mercado %}
         <p>Jugador: {{jugador.nombre}} Puntos: {{jugador.estadisticas}} Valor de mercado: {{jugador.valordemercado}}
-        <button class="btn-pujar" data-id="{{ jugador.id }}" data-valor="{{ jugador.valordemercado }}">Pujar</button> </p>
+        <button class="btn-pujar" data-id="{{ jugador.id }}" data-valor="{{ jugador.valordemercado }}"data-nombre="{{ jugador.nombre }}" data-puntos="{{ jugador.estadisticas }}">Pujar</button>
     {% endfor %}
 </div>
 {% if app.user == liga.administrador %}

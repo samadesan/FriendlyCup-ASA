@@ -136,32 +136,5 @@ class LigaFantasy
 
         return $this;
     }
-    public function filtrarJugadoresLibres(array $todosLosJugadores): array
-    {
-        $libres = [];
-        foreach ($todosLosJugadores as $jugador) {
-            $estaOcupado = false;
-            foreach ($this->getEquipoFantasies() as $equipo) {
-                if ($equipo->tieneJugador($jugador->getId())) {
-                    $estaOcupado = true;
-                    break; 
-                }
-            }
-            if (!$estaOcupado) {
-                $libres[] = $jugador;
-            }
-        }
-        return $libres;
-    }
-    public function estaJugadorOcupado(EquipoFantasy $miEquipo, int $jugadorId): bool
-    {
-        $rivales = $miEquipo->getLigafantasy()->getEquipoFantasies();
-        foreach ($rivales as $rival) {
-            if ($rival->getId() === $miEquipo->getId()) continue; 
-            if ($rival->tieneJugador($jugadorId)) {
-                return true;
-            }
-        }
-        return false;
-    }
+    
 }

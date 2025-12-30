@@ -75,11 +75,23 @@ final class FantasyController extends AbstractController
     }
 
     #[Route('/api/equipo/{id}/presupuesto', name: 'api_update_presupuesto', methods: ['POST'])]
-    public function actualizarPresupuesto(EquipoFantasy $equipo,Request $request,EntityManagerInterface $em):JsonResponse{
+    public function actualizarPresupuesto(EquipoFantasy $equipo,Request $request,JugadoresRepository $jugadoresRepo,EntityManagerInterface $em):JsonResponse{
         $data = json_decode($request->getContent(), true);
         $equipo->setPresupuesto($data['presupuesto']);
+        $jugador = $jugadoresRepo->find($data['idJugador']);
+        $equipo->addTitular($jugador);
         $em->flush();
         return $this->json($equipo, 200, [], ['groups' => 'equipo:read']);
+    }
+    #[Route('/api/equipo/{id}/vender', methods: ['POST'])]
+    public function venderJugador(EquipoFantasy $equipo, Request $request, JugadoresRepository $jugadoresRepo, EntityManagerInterface $em): JsonResponse {
+        $data = json_decode($request->getContent(), true);
+        $jugador = $jugadoresRepo->find($data['idJugador']);
+        $nuevoPresupuesto = $equipo->getPresupuesto() + $jugador->getValordemercado();
+        $equipo->setPresupuesto($nuevoPresupuesto);
+        $equipo->removeTitular($jugador);
+        $em->flush();
+        return $this->json(['nuevoPresupuesto' => $nuevoPresupuesto], 200);
     }
 
     #[Route('/liga/{id}', name: 'fantasy_liga')]
