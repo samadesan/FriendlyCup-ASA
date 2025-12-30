@@ -4,7 +4,7 @@
 
 {% block body %}
 <h1>Equipo: {{ equipo.entrenador.name }}</h1>
-<h2>Presupuesto: <span id="budget">{{ equipo.presupuesto | number_format }}</span> €</h2>
+<h2>Presupuesto: <span id="budget" data-valor="{{ equipo.presupuesto }}">{{ equipo.presupuesto | number_format }}</span> €</h2>
 
 <div class="campo-futbol">
     <h3>Mis jugadores</h3>

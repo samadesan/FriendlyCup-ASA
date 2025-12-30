@@ -14,6 +14,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 #[Route('/fantasy')]
 final class FantasyController extends AbstractController
 {
@@ -70,6 +72,14 @@ final class FantasyController extends AbstractController
         }
 
         return $this->redirectToRoute('inicio');
+    }
+
+    #[Route('/api/equipo/{id}/presupuesto', name: 'api_update_presupuesto', methods: ['POST'])]
+    public function actualizarPresupuesto(EquipoFantasy $equipo,Request $request,EntityManagerInterface $em):JsonResponse{
+        $data = json_decode($request->getContent(), true);
+        $equipo->setPresupuesto($data['presupuesto']);
+        $em->flush();
+        return $this->json($equipo, 200, [], ['groups' => 'equipo:read']);
     }
 
     #[Route('/liga/{id}', name: 'fantasy_liga')]

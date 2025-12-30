@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use App\Repository\EquipoFantasyRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: EquipoFantasyRepository::class)]
 class EquipoFantasy
@@ -13,6 +14,7 @@ class EquipoFantasy
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['equipofantasy:read'])]
     private ?int $id = null;
 
 
@@ -21,16 +23,20 @@ class EquipoFantasy
     private ?LigaFantasy $ligafantasy = null;
 
     #[ORM\ManyToOne(inversedBy: 'equipoFantasies')]
+    #[Groups(['equipofantasy:read'])]
     private ?User $entrenador = null;
 
     #[ORM\Column]
-    private ?float $presupuesto = 100000000;
+    #[Groups(['equipofantasy:read'])]
+    private ?float $presupuesto = 0;
 
     #[ORM\ManyToMany(targetEntity: Jugadores::class)]
     #[ORM\JoinTable(name: "equipofantasy_titulares")]
+    #[Groups(['equipofantasy:read'])]
     private Collection $titulares;
 
     #[ORM\Column]
+    #[Groups(['equipofantasy:read'])]
     private ?int $puntos = 0;
 
     public function getId(): ?int
