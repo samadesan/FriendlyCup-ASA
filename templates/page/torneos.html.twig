@@ -58,7 +58,7 @@
 
             <div class="organizador-card link-box">
                 <p>Organizador Card</p>
-                <button id="unirseliga" data-email="{{ app.user.email }}" data-torneo="{{ torneo.id }}" data-email="{{ app.user.email }}">Unirme a la liga</button>
+                <button type="button" id="unirseliga"  data-torneo="{{ torneo.id }}">Unirme a la liga</button>
             </div>
 
             <button class="btn-fantasy"><a href="{{ path('fantasycrear', {'id': torneo.id}) }}">Crear fantasy ligado</a></button>
