@@ -99,13 +99,20 @@ final class FantasyController extends AbstractController
         return $this->json(['nuevoPresupuesto' => $nuevoPresupuesto], 200);
     }
     #[Route('/api/liga/unirse', methods: ['POST'])]
-    public function anadirUsuario(LigaFantasyRepository $ligaRepo,Request $request,UserRepository $userRepo,EntityManagerInterface $em) : JsonResponse{
+    public function anadirUsuario(LigaFantasyRepository $ligaRepo,EquipoFantasyRepository $equipoRepo,Request $request,UserRepository $userRepo,EntityManagerInterface $em) : JsonResponse{
         $data = json_decode($request->getContent(), true);
         $clave = $data['clave'] ?? null;
         $usuario = $this->getUser();
         $liga = $ligaRepo->findOneBy(['clave' => $clave]);
         if (!$liga || !$usuario) {
         return $this->json(['error' => 'Clave o usuario incorrectos'], 400);
+        }
+        $yaExiste = $equipoRepo->findOneBy([
+        'entrenador' => $usuario,
+        'ligafantasy' => $liga
+        ]);
+        if ($yaExiste) {
+            return $this->json(['error' => 'Ya estás unido a esta liga'], 400);
         }
         $nuevoEquipo = new EquipoFantasy();
         $nuevoEquipo->setPresupuesto($liga->getPresupuestoinicial());
