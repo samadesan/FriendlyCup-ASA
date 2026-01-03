@@ -1,0 +1,5 @@
+<h2>Clasificación</h2>
+<p>Tabla de posiciones</p>
+{% for equipo in equipos %}
+    <li>{{ equipo.nombre }} - {{ equipo.puntos }}</li>
+{% endfor %}

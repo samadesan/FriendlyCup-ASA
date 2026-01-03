@@ -1,4 +1,6 @@
 let unirse=document.getElementById("unirseliga")
+let tabs = document.querySelectorAll('.tab');
+let section = document.getElementById('torneo-section');
 unirse.onclick=anadirusuario
 function anadirusuario() {
     let clave = prompt("Introduce la clave privada de la liga:");
@@ -40,7 +42,22 @@ function gestionseguidores() {
         headers: {
             'Content-Type': 'application/json'
         }
-    }).then(()=>{
-        
     })
+}
+
+tabs.forEach(tab => {
+    tab.onclick= function (e) {
+        e.preventDefault()
+        tabs.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        fetch(this.dataset.url)
+        .then(r => r.text())
+        .then(html=>{
+            section.innerHTML = html;
+        })
+    }
+})
+let activa = document.querySelector('.tab.active');
+if (activa) {
+    cargar(activa.dataset.url);
 }

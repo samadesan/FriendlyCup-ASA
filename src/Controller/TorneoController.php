@@ -6,6 +6,7 @@ use App\Entity\Torneo;
 use App\Entity\Equipos;
 use App\Form\EquipoFormType;
 use App\Form\TorneoFormType;
+use App\Repository\JugadoresRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -112,6 +113,34 @@ final class TorneoController extends AbstractController
         return $this->json([
         'accion' => $accion,
         'totalSeguidores' => $torneo->getSeguidores()->count()
+        ]);
+    }
+    #[Route('/torneo/{id}/resumen', name: 'torneo_resumen')]
+    public function resumen(Torneo $torneo): Response
+    {
+        return $this->render('page/torneo/resumen.html.twig', [
+            'torneo' => $torneo
+        ]);
+    }
+    #[Route('/torneo/{id}/clasificacion', name: 'torneo_clasificacion')]
+    public function clasificacion(Torneo $torneo): Response
+    {
+        return $this->render('page/torneo/clasificacion.html.twig', [
+            'equipos' => $torneo->getEquipos()
+        ]);
+    }
+    #[Route('/torneo/{id}/estadisticas', name: 'torneo_estadisticas')]
+    public function estadisticas(Torneo $torneo): Response
+    {
+        $jugadores =[];
+        foreach ($torneo->getEquipos() as $equipo) {
+            foreach ($equipo->getJugadores() as $jugador) {
+                $jugadores[$jugador->getId()] = $jugador;
+            }
+        }
+        return $this->render('page/torneo/estadisticas.html.twig', [
+            'jugadores' => $jugadores,
+            'torneo' => $torneo
         ]);
     }
     #[Route('/torneo/{id}', name: 'torneo')]

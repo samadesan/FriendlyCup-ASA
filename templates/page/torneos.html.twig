@@ -6,7 +6,7 @@
             <section class="torneo-header-card">
                 <div class="header-info">
                     <h1>{{torneo.name}}</h1>
-                    <p class="fecha-text">Fecha</p>
+                    <span id="contador-seguidores">{{ torneo.seguidores}}</span> seguidores
                 </div>
                 <div class="header-actions">
                     {% if app.user == admin %}
@@ -15,32 +15,19 @@
                     {% else %}
                         <button id="seguir" data-id="{{ torneo.id }}" class="{{ app.user.seguidos.contains(torneo) ? 'btn-danger' : 'btn-secondary' }}">{{ app.user.seguidos.contains(torneo) ? 'Dejar de seguir' : 'Seguir' }}</button>
                     {% endif %}
-                    <span id="contador-seguidores">{{ torneo.seguidores}}</span> seguidores
+                    
                 </div>
             </section>
 
             <nav class="navigator-torneos">
                 <ul>
-                    <li><a href="#" class="active">Resumen</a></li>
-                    <li><a href="#">Calendario</a></li>
-                    <li><a href="#">Clasificación</a></li>
-                    <li><a href="#">Stats</a></li>
+                    <li><a href="#" id="resumen" class="tab active" data-url="{{ path('torneo_resumen', {id: torneo.id}) }}">Resumen</a></li>
+                    <li><a href="#" id="clasificacion"class="tab" data-url="{{ path('torneo_clasificacion', {id: torneo.id}) }}">Clasificación</a></li>
+                    <li><a href="#" id="estadisticas"class="tab" data-url="{{ path('torneo_estadisticas', {id: torneo.id}) }}">Estadisticas</a></li>
                 </ul>
             </nav>
 
-            <section class="torneo-section">
-                <h2>Resumen</h2>
-                <div class="data-box">
-                    <h3>Próximos Partidos</h3>
-                    <div class="placeholder-row"></div>
-                    <div class="placeholder-row"></div>
-                </div>
-                
-                <div class="data-box">
-                    <h3>Últimos Resultados</h3>
-                    <div class="placeholder-row"></div>
-                    <div class="placeholder-table"></div>
-                </div>
+            <section id="torneo-section" class="torneo-section">
             </section>
         </main>
 

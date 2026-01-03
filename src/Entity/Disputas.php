@@ -26,6 +26,9 @@ class Disputas
     #[ORM\JoinColumn(nullable: false)]
     private ?Equipos $equipo2 = null;
 
+    #[ORM\Column(length: 255)]
+    private ?Equipos $ganador = null;
+
     #[ORM\ManyToOne(inversedBy: 'disputas')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Torneo $torneo = null;
@@ -78,6 +81,18 @@ class Disputas
     public function setEquipo2(?Equipos $equipo2): static
     {
         $this->equipo2 = $equipo2;
+
+        return $this;
+    }
+
+    public function getGanador(): ?Equipos
+    {
+        return $this->ganador;
+    }
+
+    public function setGanador(Equipos $ganador): static
+    {
+        $this->ganador = $ganador;
 
         return $this;
     }
