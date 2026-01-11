@@ -2,27 +2,35 @@
 {% block title %}Editar Torneo {% endblock title %}
 {% block body %}
     <div class="editar-torneo">
+        <div id="RLCBlock">
             <h2>Editar Torneo</h2>
-            <hr>
+        </div>
+        <div id="RLCForm">
             {{ form_start(formulario, {'attr': {'id': 'formTorneo'}}) }}
             {{ form_end(formulario) }}
-            <div class="botones-accion">
-                    <button id="btn-add-equipo">
-                            <a href="{{ path('crearequipo',{'id': torneo.id}) }}" data-torneo-id="{{ torneo.id }}">Añadir equipo</a>
-                    </button>
-                    <button id="cancelar"><a href="{{ path('torneo',{'id': torneo.id}) }}">Cancelar</a></button>
-            </div>
-            {% for equipo in equipos %}
-            <div id="equipos">
-                <tr>
+        </div>
+
+        {% for equipo in equipos %}
+            <div class="equipos">
+                <table class="stats-table">
+                    <tbody>
+                    <tr>
                         <td>{{ equipo.id }}</td>
                         <td>{{ equipo.nombre }}</td>
                         <td>
-                        <a href="{{path('equipoeliminado', {'id': equipo.id})}}" class="btn btn-sm btn-danger">Eliminar</a>
-                        <a href="{{path('equipo', {'id': equipo.id})}}" class="btn btn-sm btn-secondary">Modificar</a>
-                </td>
-                </tr>
+                            <a href="{{path('equipoeliminado', {'id': equipo.id})}}" class="btn btn-sm btn-danger">Eliminar</a>
+                            <a href="{{path('equipo', {'id': equipo.id})}}" class="btn btn-sm btn-secondary">Modificar</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-            {% endfor %}
+        {% endfor %}
+        <div class="botones-accion">
+            <button id="btn-add-equipo">
+                <a href="{{ path('crearequipo',{'id': torneo.id}) }}" data-torneo-id="{{ torneo.id }}">Añadir equipo</a>
+            </button>
+            <button id="cancelar"><a href="{{ path('torneo',{'id': torneo.id}) }}">Cancelar</a></button>
+        </div>
     </div>
 {% endblock %}

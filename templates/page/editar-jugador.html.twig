@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block title %}Editar Torneo {% endblock title %}
+{% block body %}
+    <div class="editar-jugador">
+        <div id="RLCBlock">
+            <h2>Editar Jugador</h2>
+        </div>
+        <div id="RLCForm">
+            {{ form_start(formulario, {'attr': {'id': 'formJugador'}}) }}
+            {{ form_end(formulario) }}
+        </div>
+
+        {% for jugador in jugadores %}
+            <div class="equipos">
+                <table class="stats-table">
+                    <tbody>
+                    <tr>
+                        <td>{{ jugador.id }}</td>
+                        <td>{{ jugador.nombre }}</td>
+                        <td>
+                            <a href="{{path('jugadoreliminado', {'id': jugador.id})}}" class="btn btn-sm btn-danger">Eliminar</a>
+                            <a href="{{path('jugador', {'id': jugador.id})}}" class="btn btn-sm btn-secondary">Modificar</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
+        <div class="botones-accion">
+            <button id="btn-add-jugador">
+                <a href="{{ path('crearjugador',{'id': torneo.id}) }}" data-torneo-id="{{ torneo.id }}">Añadir equipo</a>
+            </button>
+            <button id="cancelar"><a href="{{ path('torneo',{'id': torneo.id}) }}">Cancelar</a></button>
+        </div>
+    </div>
+{% endblock %}

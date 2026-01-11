@@ -3,66 +3,88 @@
 {% block title %}Detalles del Equipo: {{ equipo.nombre }}{% endblock %}
 
 {% block body %}
-<div class="container mt-5">
-    {# Encabezado del Equipo #}
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
+    <div class="editar-torneo">
+        <div id="RLCBlock">
             <h1>{{ equipo.nombre }}</h1>
-            <p class="text-muted">
-                Torneo: <strong>{{ torneo.name }}</strong> | 
-                Puntos actuales: <span class="badge bg-primary text-white">{{ puntos }}</span>
-            </p>
         </div>
-        <a href="{{ path('inicio') }}" class="btn btn-outline-secondary btn-sm">Volver al inicio</a>
-    <hr>
-    {# Sección de Jugadores #}
-    <div class="card shadow-sm">
-        <div class="card-header bg-light d-flex justify-content-between align-items-center">
-            <h3 class="mb-0">Plantilla de Jugadores</h3>
-            {# Botón que siempre aparece para añadir más #}
-            {% if jugadores is not empty %}
-                <a href="{{ path('crearjugador', {'id': equipo.id}) }}" class="btn btn-success btn-sm">+ Añadir Jugador</a>
-            {% endif %}
+
+        <div class="equipos">
+
+
+            <table class="stats-table">
+                <thead>
+                <tr>
+                    <th>Torneo</th>
+                    <th>Puntos</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ torneo.name }}</td>
+                    <td>
+                    <span class="btn-cta-round" style="color:#fff;">
+                        {{ puntos }}
+                    </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <a href="{{ path('inicio') }}" class="volver" style="margin-top:15px; display:inline-block;">
+                Volver al inicio
+            </a>
         </div>
-        <div class="card-body">
-            
-            {% if jugadores is empty %}
-                {# ESTADO VACÍO: Si no hay jugadores #}
-                <div class="text-center py-5">
-                    <i class="bi bi-people fs-1 text-muted"></i>
-                    <p class="mt-3">Aún no hay jugadores inscritos en este equipo.</p>
-                    
-                    {# BOTÓN PARA AÑADIR (Debes crear esta ruta en tu controlador) #}
-                    <a href="{{ path('crearjugador', {'id': equipo.id}) }}" class="btn btn-primary lg">
-                        <i class="bi bi-person-plus-fill"></i> Añadir el primer jugador
+
+        <hr>
+
+        <div class="stats-table-container">
+            <div style="display:flex; justify-content: space-between; align-items:center;">
+                <h3>Plantilla de Jugadores</h3>
+
+                {% if jugadores is not empty %}
+                    <a href="{{ path('crearjugador', {'id': equipo.id}) }}" class="volver">
+                        + Añadir jugador
                     </a>
-                </div>
+                {% endif %}
+            </div>
+
+            {% if jugadores is empty %}
+                <p style="margin-top: 20px;">
+                    Aún no hay jugadores inscritos en este equipo.
+                </p>
+
+                <a href="{{ path('crearjugador', {'id': equipo.id}) }}" class="volver">
+                    Añadir el primer jugador
+                </a>
             {% else %}
-                {# LISTADO: Si hay jugadores #}
-                <table class="table table-hover mt-3">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Acciones</th>
-                        </tr>
+                <table class="stats-table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Acciones</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        {% for jugador in jugadores %}
-                            <tr>
-                                <td>{{ jugador.id }}</td>
-                                <td>{{ jugador.nombre }}</td>
-                                <td>
-                                    <a href="{{path('jugadoreliminado', {'id': jugador.id})}}" class="btn btn-sm btn-danger">Eliminar</a>
-                                    <a href="{{path('modificarjugador', {'id': jugador.id})}}" class="btn btn-sm btn-secondary">Modificar</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
+                    {% for jugador in jugadores %}
+                        <tr>
+                            <td>{{ jugador.id }}</td>
+                            <td>{{ jugador.nombre }}</td>
+                            <td>
+                                <a href="{{ path('jugadoreliminado', {'id': jugador.id}) }}"
+                                   class="btn-danger">
+                                    Eliminar
+                                </a>
+                                <a href="{{ path('modificarjugador', {'id': jugador.id}) }}"
+                                   class="btn-secondary">
+                                    Modificar
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             {% endif %}
-            </div>
         </div>
     </div>
-</div>
 {% endblock %}

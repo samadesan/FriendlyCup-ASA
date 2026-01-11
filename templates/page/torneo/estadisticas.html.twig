@@ -1,23 +1,25 @@
 <h2>Estadísticas de jugadores</h2>
-<table class="tabla-estadisticas">
-    <thead>
-        <tr>
-            <th>Jugador</th>
-            <th>Puntos</th>
-            <th>Valor mercado</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for jugador in jugadores %}
+<div class="stats-table-container">
+    <table class="stats-table">
+        <thead>
             <tr>
-                <td>{{ jugador.nombre }}</td>
-                <td>{{ jugador.estadisticas }}</td>
-                <td>{{ jugador.valordemercado }} €</td>
+                <th>Jugador</th>
+                <th>Puntos</th>
+                <th>Valor mercado</th>
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">No hay estadísticas disponibles</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            {% for jugador in jugadores %}
+                <tr>
+                    <td>{{ jugador.nombre }}</td>
+                    <td>{{ jugador.estadisticas }}</td>
+                    <td>{{ jugador.valordemercado }} €</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">No hay estadísticas disponibles</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

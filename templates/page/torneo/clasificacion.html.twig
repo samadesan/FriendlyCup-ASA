@@ -1,5 +1,23 @@
 <h2>Clasificación</h2>
 <p>Tabla de posiciones</p>
-{% for equipo in equipos %}
-    <li>{{ equipo.nombre }} - {{ equipo.puntos }}</li>
-{% endfor %}
+
+<div class="stats-table-container">
+    <table class="stats-table">
+        <thead>
+        <tr>
+            <th>Posición</th>
+            <th>Equipo</th>
+            <th>Puntos</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for equipo in equipos %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ equipo.nombre }}</td>
+                <td>{{ equipo.puntos }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
