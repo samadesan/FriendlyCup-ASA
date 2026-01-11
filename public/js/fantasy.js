@@ -1,104 +1,110 @@
-let presupuesto=document.getElementById("budget");
+let presupuesto = document.getElementById("budget");
 let maximo = Number(presupuesto.dataset.minimo);
 let presupuestoActual = Number(presupuesto.dataset.valor);
 let idEquipo = presupuesto.dataset.id;
-let contenedorJugadores = document.querySelector('.jugadores');
-let pujar=document.querySelectorAll('.btn-pujar');
-let botonesVender=document.querySelectorAll('.vender')
-botonesVender.forEach(boton=>{
-    boton.onclick=vender
-})
+
+let tablas = document.querySelectorAll('.torneo-content .stats-table tbody');
+let tablaJugadores = tablas[0]; // primera tabla = mis jugadores
+let tablaMercado = tablas[1];   // segunda tabla = mercado
+
 let admin = document.getElementById("btnAnadirUsuario");
-if (admin) {
-    admin.onclick = mostrarclave;
+if (admin) admin.onclick = mostrarClave;
+
+asignarEventosBotones();
+
+function asignarEventosBotones() {
+    let botonesVender = tablaJugadores.querySelectorAll('.vender');
+    botonesVender.forEach(boton => boton.onclick = vender);
+
+    let botonesPujar = tablaMercado.querySelectorAll('.btn-pujar');
+    botonesPujar.forEach(boton => boton.onclick = comprar);
 }
-pujar.forEach(boton => {
-    boton.onclick=comprar
-})
+
 function comprar() {
-    let contenedorJugadores = document.querySelector('.jugadores'); 
-    let numJugadoresActuales = contenedorJugadores.querySelectorAll('.jugador-card.titular').length;
+    let numJugadoresActuales = tablaJugadores.querySelectorAll('tr').length;
     if (numJugadoresActuales >= maximo) {
-        alert(`¡Has alcanzado el número maximo de jugadores (${maximo})! No puedes fichar más.`);
+        alert(`¡Has alcanzado el número máximo de jugadores (${maximo})!`);
         return;
     }
+
+    let fila = this.closest('tr');
     let idJugador = this.dataset.id;
-    let nombreJugador = this.dataset.nombre;
-    let costoJugador = Number(this.dataset.valor);
-    let puntosJugador = this.dataset.puntos; 
-    let tarjetaJugador = this.parentElement;
-    if (presupuestoActual >= costoJugador) {
-        let nuevoSaldo = presupuestoActual - costoJugador;
-        fetch(`/fantasy/api/equipo/${idEquipo}/presupuesto`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                presupuesto: nuevoSaldo, 
-                idJugador: idJugador 
-            })
-        })
-        .then(() => {
-            presupuestoActual = nuevoSaldo;
-            presupuesto.textContent = nuevoSaldo; 
-            presupuesto.dataset.valor = nuevoSaldo;
-            tarjetaJugador.remove();
-            let nuevaFicha = document.createElement('div');
-            nuevaFicha.classList.add('jugador-card', 'titular');
-            nuevaFicha.innerHTML = `
-                Jugador: ${nombreJugador} 
-                Puntos: ${puntosJugador} 
-                Valor de mercado: ${costoJugador}
+    let nombre = this.dataset.nombre;
+    let valor = Number(this.dataset.valor);
+    let puntos = this.dataset.puntos;
+
+    if (presupuestoActual < valor) {
+        alert("No tienes suficiente saldo");
+        return;
+    }
+
+    let nuevoSaldo = presupuestoActual - valor;
+
+    fetch(`/fantasy/api/equipo/${idEquipo}/presupuesto`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ presupuesto: nuevoSaldo, idJugador: idJugador })
+    }).then(() => {
+        presupuestoActual = nuevoSaldo;
+        presupuesto.textContent = nuevoSaldo;
+        presupuesto.dataset.valor = nuevoSaldo;
+        fila.remove();
+
+        let nuevaFila = tablaJugadores.insertRow();
+        nuevaFila.innerHTML = `
+            <td>${nombre}</td>
+            <td>${puntos}</td>
+            <td>${valor} €</td>
+            <td>
                 <button class="vender"
                     data-id="${idJugador}"
-                    data-nombre="${nombreJugador}"
-                    data-valor="${costoJugador}"
-                    data-puntos="${puntosJugador}">
+                    data-nombre="${nombre}"
+                    data-valor="${valor}"
+                    data-puntos="${puntos}">
                     Vender
-                </button>`;
-                contenedorJugadores.appendChild(nuevaFicha);
-                let nuevoBotonVender = nuevaFicha.querySelector('.vender');
-                nuevoBotonVender.onclick = vender;
-        });
-    } else {
-        alert("No tienes suficiente saldo");
-    }
+                </button>
+            </td>`;
+        nuevaFila.querySelector('.vender').onclick = vender;
+    });
 }
-function mostrarclave() {
-    let clave=this.getAttribute('data-clave');
-    alert('La clave para unirse a esta liga es: ' + clave);
-}
+
 function vender() {
+    let fila = this.closest('tr');
     let idJugador = this.dataset.id;
-    let nombreJugador = this.dataset.nombre;
-    let valorJugador = Number(this.dataset.valor);
-    let puntosJugador = this.dataset.puntos;
-    let tarjetaJugador = this.parentElement;
-    let contenedorMercado = document.querySelector('.mercado');
-    let nuevoSaldo = presupuestoActual + valorJugador;
+    let nombre = this.dataset.nombre;
+    let valor = Number(this.dataset.valor);
+    let puntos = this.dataset.puntos;
+    let nuevoSaldo = presupuestoActual + valor;
 
     fetch(`/fantasy/api/equipo/${idEquipo}/vender`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ idJugador: idJugador })
-    })
-    .then(()=>{
+    }).then(() => {
         presupuestoActual = nuevoSaldo;
-        presupuesto.textContent = nuevoSaldo; 
+        presupuesto.textContent = nuevoSaldo;
         presupuesto.dataset.valor = nuevoSaldo;
-        tarjetaJugador.remove();
-        let p = document.createElement('p');
-        p.innerHTML = `
-            Jugador: ${nombreJugador}
-            Puntos: ${puntosJugador}
-            Valor de mercado: ${valorJugador}
-            <button class="btn-pujar"
-                data-id="${idJugador}"
-                data-nombre="${nombreJugador}"
-                data-valor="${valorJugador}"
-                data-puntos="${puntosJugador}">
-                Pujar
-            </button>`;
-        contenedorMercado.appendChild(p);
-        p.querySelector('.btn-pujar').onclick = comprar;
+        fila.remove();
+
+        let nuevaFila = tablaMercado.insertRow();
+        nuevaFila.innerHTML = `
+            <td>${nombre}</td>
+            <td>${puntos}</td>
+            <td>${valor} €</td>
+            <td>
+                <button class="btn-pujar"
+                    data-id="${idJugador}"
+                    data-nombre="${nombre}"
+                    data-valor="${valor}"
+                    data-puntos="${puntos}">
+                    Pujar
+                </button>
+            </td>`;
+        nuevaFila.querySelector('.btn-pujar').onclick = comprar;
     });
+}
+
+function mostrarClave() {
+    let clave = this.dataset.clave;
+    alert('La clave para unirse a esta liga es: ' + clave);
 }

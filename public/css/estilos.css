@@ -1,40 +1,49 @@
 * {
     box-sizing: border-box;
 }
-@keyframes gradientAnimation {
-    0% { background-position: 0 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0 50%; }
-}
-/* Estilos Generales */
 body {
     font-family: Arial, sans-serif;
     color: #ffffff;
     margin: 0;
-    background: radial-gradient(#0c314d, #0e1726, #0e1726, #043f29);
+    background: linear-gradient(-50deg, #0c314d, #0e1726, #043f29);
     background-size: 200% 200%;
     backdrop-filter: blur(10px);
+    animation: gradientMove 6s ease infinite;
+    min-height: 100vh;
 }
+
+@keyframes gradientMove {
+    0% { background-position: 0 50% }
+    50% { background-position: 100% 50% }
+    100% { background-position: 0 50% }
+}
+
 /* Titulo */
 .fc-title {
     width: auto;
-    height: 700px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     color: #cdc832;
-    font-size: 50pt;
+    font-size: 30pt;
+    margin-top: 50px;
+    h1 {
+        padding: 50px;
+        border: 1px solid #fff;
+        border-radius: 5px;
+        margin: 20px;
+        background: linear-gradient(#082235, #021f14);
+    }
     p {
-        font-size: 20pt;
+        font-size: 15pt;
         color: white;
     }
 }
 
 /* --- Control del Logo --- */
 .main-logo {
-    height: 50px; 
-    width: auto; 
+    height: 50px;
+    width: auto;
     display: block;
 }
 
@@ -46,6 +55,9 @@ body {
 .navigator-bar {
     border-bottom: 1px solid #939393;
     padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    background: linear-gradient(-43deg, #0c314d, #0e1726, #0e1726, #043f29);
 }
 
 .nav-content {
@@ -74,7 +86,7 @@ body {
     padding: 8px 15px;
     border: 1px solid #939393;
     border-radius: 4px;
-    color: black;
+    color: #FFF;
     margin-left: 10px;
     font-size: 14px;
     background: #223d60;
@@ -97,7 +109,7 @@ body {
     padding: 8px 15px;
     border: 1px solid #939393;
     border-radius: 4px;
-    color: black;
+    color: #FFF;
     margin-left: 10px;
     font-size: 14px;
     background: #7e0e14;
@@ -127,9 +139,7 @@ body {
 }
 
 .hero-cta:hover {
-    padding: 16px 41px;
-    transition: 50ms ease;
-    border-radius: 25px;
+    background: #075e3c;
 }
 
 /* Contenedor Principal */
@@ -137,6 +147,11 @@ body {
     max-width: 1200px;
     margin: 30px auto;
     padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+aside {
 }
 
 .section-container h2 {
@@ -166,64 +181,352 @@ hr {
 
 /* Tarjetas (Cards) */
 .card {
-    border: 1px solid #939393;
-    padding: 15px;
-    gap: 15px;
+    margin-top: 12px;
+    border: 1px solid #6b6b6b;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #071926, #0b2233);
+    width: fit-content;
+    padding: 10px 4px 10px 4px;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    a {
+        text-decoration: none;
+        color: #fff;
+        padding: 5px;
+        margin: 2px;
+        border-radius: 3px;
+        width: fit-content;
+    }
+    a:hover {
+        background: #04373f;
+    }
+    #tipo {
+        border-top: 1px solid #bebebe;
+        padding-top: 15px;
+        margin: 8px 0 10px;
+    }
+}
+
+.card-info {
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .card-img {
-    width: 60px;
-    height: 60px;
-    border: 1px solid ;
     display: flex;
-    align-items: center;
     justify-content: center;
-    font-size: 10px;
+    padding: 3px 17px;
+    margin: 1px 10px;
+    border-radius: 7px;
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+    background: #043f29;
+    width: 80px;
+    height: 20px;
+    align-items: center;
+    font-size: 12px;
 }
+/* Datos del usuario*/
+#main-data {
+    background: linear-gradient(135deg, #071926, #0b2233);
+    border: 1px solid #6b6b6b;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+    color: #ffffff;
+}
+
+#main-data p {
+    margin: 14px 0;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    color: #9fb3c8;
+}
+
+#main-data p span {
+    display: block;
+    margin-top: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+#main-data p .userDataText {
+    display: block;
+    margin-top: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    text-transform: none;
+    letter-spacing: normal;
+}
+
 /* Register y login, creación de torneo */
-.register-page, .login-page, .crear-torneo, .crear-equipo, .crear-jugador, .editar-equipo, .editar-torneo, .editar-jugador{
-    margin: 12px 0;
-    padding: 174px 0;
+.register-page, .login-page, .crear-torneo, .crear-equipo, .crear-jugador, .editar-equipo, .editar-torneo, .editar-jugador, .RLC-page {
+    margin: 110px 270px;
+    padding: 12px 0;
+    border: 1px solid #bebebe;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
     display: flex;
     flex-direction: column;
     align-content: center;
     justify-content: center;
     flex-wrap: wrap;
     width: auto;
-    div {
-        padding: 0 10px;
-        input, button {
-            text-decoration: initial;
-            display: inline-block;
-            padding: 6px;
-            margin: 11px 20px;
-            border: 2px solid #939393;
-            border-radius: 50px;
+    form {
+        display: flex;
+        flex-direction: column;
+        margin-top: 25px;
+        padding: 20px;
+        border: 1px solid;
+        border-radius: 12px;
+    }
+    span {
+        margin: 5px;
+        a {
+            color: #fff;
+            text-decoration: none;
+        }
+    }
+    p {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    input{
+        text-decoration: initial;
+        display: inline-block;
+        padding: 6px;
+        margin: 1px 10px;
+        border: 2px solid #939393;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: bold;
+        color: white;
+        background: #043f29;
+    }
+    #formActionButtons {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        margin: 6px;
+        padding: 10px;
+    }
+    button {
+        display: flex;
+        justify-content: center;
+        padding: 8px 10px;
+        margin: 1px 10px;
+        border: 2px solid #939393;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: bold;
+        color: white;
+        background: #043f29;
+        width: fit-content;
+    }
+    button:hover {
+        background: #075e3c;
+    }
+
+    #cancelar {
+        background: #3f0404;
+        width: 90px;
+    }
+
+    #cancelar:hover {
+        background: #710909;
+    }
+
+    #volver {
+        background: #04373f;
+        width: 180px;
+    }
+
+    #volver:hover {
+        background: #097687;
+    }
+
+    #RLCBlock {
+        #text {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        h1 {
+            font-size: 50pt;
+        }
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-direction: column;
+    }
+    #RLCForm {
+        #ErrInvalid {
+            padding: 8px 10px;
+            margin: 10px 10px;
+            border: 1px solid #939393;
+            border-radius: 10px;
             text-decoration: none;
             font-weight: bold;
             color: white;
-            background: #043f29;
+            background: #710909;
+            width: fit-content;
+            display: flex;
+            justify-content: center;
         }
-        #cancelar {
-            color: #fff;
-            text-decoration: initial;
-            display: inline-block;
-            padding: 6px;
-            margin: 11px 20px;
-            border: 2px solid #939393;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            background: #3f0404;
-        }
+
+    }
+    #ErrInvalid {
+        padding: 20px;
     }
 }
 .botones-accion a{
     color: #fff;
     text-decoration: initial;
+}
+
+.volver {
+    display: flex;
+    justify-content: center;
+    padding: 8px 10px;
+    margin: 18px 10px 2px;
+    border: 2px solid #939393;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+    width: fit-content;
+    background: #04373f;
+}
+
+.volver:hover {
+    background: #097687;
+}
+
+/* Fantasy */
+
+.fantasy-main {
+    border: 1px solid #bebebe;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: auto;
+    form {
+        display: flex;
+        flex-direction: column;
+        margin-top: 25px;
+        padding: 20px;
+        border: 1px solid;
+        border-radius: 12px;
+    }
+    span {
+        margin: 5px;
+        a {
+            color: #fff;
+            text-decoration: none;
+        }
+    }
+    p {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    input{
+        text-decoration: initial;
+        display: inline-block;
+        padding: 6px;
+        margin: 1px 10px;
+        border: 2px solid #939393;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: bold;
+        color: white;
+        background: #043f29;
+    }
+    #formActionButtons {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        margin: 6px;
+        padding: 10px;
+    }
+    button {
+        display: flex;
+        justify-content: center;
+        padding: 8px 10px;
+        margin: 1px 10px;
+        border: 2px solid #939393;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: bold;
+        color: white;
+        background: #043f29;
+        width: fit-content;
+    }
+    button:hover {
+        background: #075e3c;
+    }
+
+    #cancelar {
+        background: #3f0404;
+        width: 90px;
+    }
+
+    #cancelar:hover {
+        background: #710909;
+    }
+
+    #volver {
+        background: #04373f;
+        width: 180px;
+    }
+
+    #volver:hover {
+        background: #097687;
+    }
+
+    #RLCBlock {
+        #text {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        h1 {
+            font-size: 50pt;
+        }
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-direction: column;
+    }
+    #RLCForm {
+        #ErrInvalid {
+            padding: 8px 10px;
+            margin: 10px 10px;
+            border: 1px solid #939393;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            color: white;
+            background: #710909;
+            width: fit-content;
+            display: flex;
+            justify-content: center;
+        }
+
+    }
+    #ErrInvalid {
+        padding: 20px;
+    }
 }
 
 /* Footer */
@@ -252,8 +555,16 @@ footer p {
 /*css de torneos*/
 /* --- Ajustes de la página de Torneo --- */
 .main-container-torneo {
-    max-width: 1100px;
-    margin: 20px auto;
+    max-width: 1200px;
+    margin: 124px auto;
+    display: flex;
+    gap: 20px;
+    padding: 0 20px;
+}
+
+.main-container-fantasy {
+    max-width: 1200px;
+    margin-bottom: 20px;
     display: flex;
     gap: 20px;
     padding: 0 20px;
@@ -262,10 +573,18 @@ footer p {
 /* Columna Principal */
 .torneo-content {
     flex: 3; /* Ocupa más espacio */
+    padding-right: 20px;
+    border-right: 1px solid #ffffff;
+}
+
+.torneo-content nav {
+    margin-top: 10px;
+    padding-top: 10px;
 }
 
 .torneo-header-card {
     border: 1px solid #939393;
+    border-radius: 3px;
     padding: 20px;
     display: flex;
     justify-content: space-between;
@@ -289,16 +608,16 @@ footer p {
     display: flex;
     list-style: none;
     padding: 0;
-    gap: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    justify-content: space-between;
 }
 
 .navigator-torneos a {
     padding: 10px 20px;
-    border: 1px solid #ffffff;
+    border: 1px solid #eee;
+    border-bottom: transparent;
     text-decoration: none;
     color: #eee;
-    border-radius: 4px;
 }
 
 .navigator-torneos a.active {
@@ -311,6 +630,64 @@ footer p {
     padding: 20px;
 }
 
+/* Tablas */
+.stats-table-container, .equipos {
+    margin-top: 20px;
+    border: 1px solid #6b6b6b;
+    border-radius: 6px;
+    padding: 15px;
+    background: linear-gradient(135deg, #071926, #0b2233);
+}
+
+.stats-table, .editar-equipo {
+    width: 100%;
+    border-collapse: collapse;
+    color: #ffffff;
+    font-size: 15px;
+}
+
+.stats-table thead th, .editar-equipo thead th {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid #6b6b6b;
+    font-weight: 600;
+    color: #eaeaea;
+}
+
+.stats-table tbody td, .editar-equipo tbody td{
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.stats-table tbody tr:last-child td, .editar-equipo tbody tr:last-child td{
+    border-bottom: none;
+}
+
+.stats-table tbody tr:hover, .editar-equipo tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: background-color 0.2s ease-in-out;
+}
+
+tbody a {
+    text-decoration: none;
+    color: #fff;
+    padding: 5px;
+    margin: 2px;
+    border-radius: 3px;
+    width: fit-content;
+}
+
+tbody a:hover {
+    background: #04373f;
+}
+
+.equipos {
+    padding-top: 10px;
+    margin-top: 10px;
+    border-top: 1px solid #fff;
+}
+
+/* Otras de organizador */
 .data-box {
     border: 1px solid #939393;
     padding: 15px;
@@ -348,14 +725,6 @@ footer p {
     font-size: 10px;
 }
 
-.btn-fantasy {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #939393;
-    cursor: pointer;
-    font-weight: bold;
-}
-
 /* Botones específicos del boceto */
 .btn-cta-round {
     border: 1px solid #939393;
@@ -364,11 +733,50 @@ footer p {
     text-decoration: none;
     color: black;
 }
-/*  RESPONSIVIDAD  */
+
+#unirseliga {
+    display: flex;
+    justify-content: center;
+    padding: 8px 10px;
+    border: 2px solid #939393;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    background: #043f29;
+    width: fit-content;
+    color: #fff;
+}
+
+#unirseliga:hover {
+    background: #075e3c;
+}
+
+.btn-fantasy {
+    padding: 10px;
+    border: 1px solid #939393;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    text-decoration: none;
+    color: white;
+    background: #082235;
+    width: 100%;
+    a {
+        text-decoration: none;
+        color: #fff;
+    }
+}
+
+.btn-fantasy:hover {
+    background: #04373f;
+}
+/*  DISEÑO RESPONSIVO  */
 
 /*Menos de 768px */
 @media (max-width: 768px) {
-    
+
     /*Navbar*/
     .nav-content {
         flex-direction: column;
@@ -395,7 +803,7 @@ footer p {
         flex-direction: column; /* La columna lateral baja al final */
     }
 
-    .torneo-content, 
+    .torneo-content,
     .sidebar-organizador {
         flex: none;
         width: 100%;

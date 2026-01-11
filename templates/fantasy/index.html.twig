@@ -1,38 +1,114 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello FantasyController!{% endblock %}
+{% block title %}Fantasy League - {{ equipo.entrenador.name }}{% endblock %}
 
 {% block body %}
-<h1>Equipo: {{ equipo.entrenador.name }}</h1>
-<h2>Presupuesto: <span id="budget" data-minimo="{{ liga.minimoJugadores }}" data-valor="{{ equipo.presupuesto }}" data-id="{{ equipo.id }}">{{ equipo.presupuesto | number_format }}</span> €</h2>
+    <div class="fantasy-main">
+        <section id="RLCBlock">
+            <h1>Equipo {{ equipo.id }} de {{ equipo.entrenador.name }}</h1>
+            <p class="budget-text" style="display: flex; justify-content: center; font-size: 25pt">Presupuesto -> <span id="budget"
+                                                       data-minimo="{{ liga.minimoJugadores }}"
+                                                       data-valor="{{ equipo.presupuesto }}"
+                                                       data-id="{{ equipo.id }}">
+            {{ equipo.presupuesto | number_format }} €
+        </span></p>
+        </section>
 
-<div class="jugadores">
-    <h3>Mis jugadores</h3>
-    {% for jugador in misJugadores %}
-    <div class="jugador-card titular">
-        Jugador: {{jugador.nombre}} Puntos: {{jugador.estadisticas}} Valor de mercado: {{jugador.valordemercado}}
-        <button class="vender" data-id="{{ jugador.id }}" data-nombre="{{ jugador.nombre }}"data-valor="{{ jugador.valordemercado }}"data-puntos="{{ jugador.estadisticas }}">Vender</button>
+        <div class="main-container-fantasy">
+            <div class="torneo-content">
+                <h3>Mis jugadores</h3>
+                <div class="stats-table-container">
+                    <table class="stats-table">
+                        <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Puntos</th>
+                            <th>Valor de mercado</th>
+                            <th>Acción</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for jugador in misJugadores %}
+                            <tr>
+                                <td>{{ jugador.nombre }}</td>
+                                <td>{{ jugador.estadisticas }}</td>
+                                <td>{{ jugador.valordemercado }} €</td>
+                                <td>
+                                    <button class="vender"
+                                            data-id="{{ jugador.id }}"
+                                            data-nombre="{{ jugador.nombre }}"
+                                            data-valor="{{ jugador.valordemercado }}"
+                                            data-puntos="{{ jugador.estadisticas }}">
+                                        Vender
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Mercado</h3>
+                <div class="stats-table-container">
+                    <table class="stats-table">
+                        <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Puntos</th>
+                            <th>Valor de mercado</th>
+                            <th>Acción</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for jugador in mercado %}
+                            <tr>
+                                <td>{{ jugador.nombre }}</td>
+                                <td>{{ jugador.estadisticas }}</td>
+                                <td>{{ jugador.valordemercado }} €</td>
+                                <td>
+                                    <button class="btn-pujar"
+                                            data-id="{{ jugador.id }}"
+                                            data-valor="{{ jugador.valordemercado }}"
+                                            data-nombre="{{ jugador.nombre }}"
+                                            data-puntos="{{ jugador.estadisticas }}">
+                                        Pujar
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <aside class="sidebar-organizador">
+                <h3>En esta liga</h3>
+                <div class="stats-table-container">
+                    <table class="stats-table">
+                        <thead>
+                        <tr>
+                            <th>Equipo</th>
+                            <th>Puntos</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for equipo in equiposEnLiga %}
+                            <tr>
+                                <td>{{ equipo.entrenador.name }}</td>
+                                <td>{{ equipo.puntos }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% if app.user == liga.administrador %}
+                    <button id="btnAnadirUsuario"
+                            class="btn btn-primary"
+                            data-clave="{{ liga.clave }}">
+                        Ver clave invitación
+                    </button>
+                {% endif %}
+                <button type="button" class="volver"><a href="{{ path('inicio') }}" style="text-decoration: none; color: white">Volver al Menú Principal</a></button>
+            </aside>
+        </div>
     </div>
-{% endfor %}
-</div>
-<h2>Equipos en esta liga:</h2>
-<ul>
-{% for equipo in equiposEnLiga %}
-    <li>
-        {{ equipo.entrenador.name }} - Puntos: {{ equipo.puntos }}
-    </li>
-{% endfor %}
-</ul>
-<div class="contador"></div>
-<div class="mercado">
-    {% for jugador in mercado %}
-        <p>Jugador: {{jugador.nombre}} Puntos: {{jugador.estadisticas}} Valor de mercado: {{jugador.valordemercado}}
-        <button class="btn-pujar" data-id="{{ jugador.id }}" data-valor="{{ jugador.valordemercado }}"data-nombre="{{ jugador.nombre }}" data-puntos="{{ jugador.estadisticas }}">Pujar</button>
-    {% endfor %}
-</div>
-{% if app.user == liga.administrador %}
-    <button id="btnAnadirUsuario" 
-        class="btn btn-primary" 
-        data-clave="{{ liga.clave }}">Ver clave invitacion</button>
-{% endif %}
 {% endblock %}
