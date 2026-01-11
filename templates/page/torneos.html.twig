@@ -23,30 +23,27 @@
             <nav class="navigator-torneos">
                 <ul>
                     <li><a href="#" id="resumen" class="tab active" data-url="{{ path('torneo_resumen', {id: torneo.id}) }}">Resumen</a></li>
-                    <li><a href="#" id="clasificacion"class="tab" data-url="{{ path('torneo_clasificacion', {id: torneo.id}) }}">Clasificación</a></li>
-                    <li><a href="#" id="estadisticas"class="tab" data-url="{{ path('torneo_estadisticas', {id: torneo.id}) }}">Estadisticas</a></li>
+                    <li><a href="#" id="clasificacion" class="tab" data-url="{{ path('torneo_clasificacion', {id: torneo.id}) }}">Clasificación</a></li>
+                    <li><a href="#" id="estadisticas" class="tab" data-url="{{ path('torneo_estadisticas', {id: torneo.id}) }}">Estadisticas</a></li>
                 </ul>
             </nav>
-            
-            <section id="torneo-section" class="torneo-section">
-            </section>
+
+            <section id="torneo-section" class="torneo-section"></section>
         </main>
 
         <aside class="sidebar-organizador">
             <div class="organizador-card">
                 <h3>Organizador</h3>
                 <hr>
+                {# de aquí #}
                 <div class="org-info">
-                    <div class="img-placeholder">Image</div>
-                    <span>Fantasy</span>
+                    <span>{{admin.name}}</span>
                 </div>
-                <div class="org-footer">
-                    <div class="img-placeholder-small"></div>
-                </div>
+                {# a aquí, poner el nombre del creador del torneo (Organizador) #}
             </div>
 
             <div class="organizador-card link-box">
-                <p>Organizador Card</p>
+                <p>Para fantasy</p>
                 <button type="button" id="unirseliga" data-url="{{ path('app_fantasy_anadirusuario') }}" data-torneo="{{ torneo.id }}">Unirme a la liga</button>
             </div>
 

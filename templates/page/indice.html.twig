@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FriendlyCup - Crea tus propios torneos">
+    <link rel="icon" type="image/png" href="{{ asset('img/logo.png') }}">
+    <title>{% block title %}FriendlyCup{% endblock %}</title>
+
+    {# Cargamos el CSS desde la carpeta public/css #}
+    <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
+</head>
+<body>
+<div class="web">
+    <nav class="navigator-bar">
+        <div class="nav-content">
+            <div class="logoFC">
+                <a href="{{ path('inicio') }}">
+                    <img src="{{ asset('img/logo.png') }}" alt="FriendlyCup Logo" class="main-logo">
+                </a>
+            </div>
+            <div class="search-container">
+                <input type="text" placeholder="Buscar torneos">
+            </div>
+            <div class="nav-buttons">
+                <nav id="navLogin">
+                    {% if app.user %}
+                        {# Si el usuario está logueado #}
+                        <span class="user-welcome">Hola, {{ app.user.name }}</span>
+                        <button class="btn-secondary">
+                            <a href="{{ path('app_logout') }}">Cerrar Sesión</a>
+                        </button>
+                    {% else %}
+                        {# Si no está logueado #}
+                        <button class="btn-secondary">
+                            <a href="{{ path('app_login') }}">Iniciar Sesión</a>
+                        </button>
+                        <button class="btn-secondary">
+                            <a href="{{ path('app_register') }}">Registrarse</a>
+                        </button>
+                    {% endif %}
+                </nav>
+            </div>
+        </div>
+    </nav>
+
+    <section class="fc-title">
+        <h1>\_ FriendlyCup _/</h1>
+        <p>Bienvenido a tu página de torneos</p>
+    </section>
+
+    <main class="body-content">
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>¡Crea ya tu torneo<br>en breves minutos!</h1>
+                <a href="{{ path('crear-torneo') }}" class="hero-cta">Nuevo torneo</a>
+            </div>
+        </section>
+    </main>
+</div>
+
+<footer>
+    <div>
+        <p>&copy; {{ "now"|date("Y") }} Samuel Aded, Abel Sabater y Álvaro Ruiz - FriendlyCup</p>
+        <p>Todos los derechos reservados</p>
+    </div>
+</footer>
+
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="{{ asset('js/fantasy.js') }}"></script>
+    <script src="{{ asset('js/torneo.js') }}"></script>
+{% endblock %}
+</body>
+</html>
