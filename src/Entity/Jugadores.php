@@ -30,17 +30,9 @@ class Jugadores
     #[ORM\ManyToMany(targetEntity: EquipoFantasy::class, mappedBy: 'titulares',)]
     private Collection $equipoFantasies;
 
-    #[ORM\OneToMany(
-        targetEntity: PuntuajeEvento::class,
-        mappedBy: 'jugador',
-        cascade: ['persist', 'remove']
-    )]
-    private Collection $puntajeEventos;
-
     public function __construct()
     {
         $this->equipoFantasies = new ArrayCollection();
-        $this->puntajeEventos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -98,28 +90,5 @@ class Jugadores
     public function getEquipoFantasies(): Collection
     {
         return $this->equipoFantasies;
-    }
-
-    /**
-     * @return Collection<int, PuntajeEvento>
-     */
-    public function getPuntajeEventos(): Collection
-    {
-        return $this->puntajeEventos;
-    }
-
-    public function addPuntajeEvento(PuntuajeEvento $puntajeEvento): self
-    {
-        if (!$this->puntajeEventos->contains($puntajeEvento)) {
-            $this->puntajeEventos->add($puntajeEvento);
-        }
-
-        return $this;
-    }
-
-    public function removePuntajeEvento(PuntuajeEvento $puntajeEvento): self
-    {
-        $this->puntajeEventos->removeElement($puntajeEvento);
-        return $this;
     }
 }
