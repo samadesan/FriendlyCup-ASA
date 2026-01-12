@@ -27,6 +27,7 @@ class Disputas
     private ?Equipos $equipo2 = null;
 
     #[ORM\Column(length: 255)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Equipos $ganador = null;
 
     #[ORM\ManyToOne(inversedBy: 'disputas')]
