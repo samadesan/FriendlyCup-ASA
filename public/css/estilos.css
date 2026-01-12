@@ -829,3 +829,102 @@ tbody a:hover {
         margin-top: 15px;
     }
 }
+/* --- Estilos para Formularios de Creación (Torneo, Equipo, Jugador) --- */
+
+.crear-torneo, .crear-equipo, .crear-jugador {
+    max-width: 600px; /* Limitamos el ancho para que no se vea estirado */
+    margin: 40px auto; /* Centrado horizontal con margen superior */
+    padding: 30px;
+    background: rgba(14, 23, 38, 0.8); /* Fondo oscuro semitransparente para resaltar sobre el radial */
+    border: 1px solid #939393;
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+}
+
+.crear-torneo h2, .crear-equipo h2, .crear-jugador h2 {
+    color: #cdc832; /* El amarillo dorado de tu título principal */
+    font-size: 24pt;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Estilo para las etiquetas (labels) del formulario de Symfony */
+form[id="formTorneo"] label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #eee;
+}
+
+/* Estilo para los inputs generado por Symfony */
+form[id="formTorneo"] input, 
+form[id="formTorneo"] select, 
+form[id="formTorneo"] textarea {
+    width: 100%;
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #939393;
+    border-radius: 4px;
+    color: white;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+form[id="formTorneo"] input:focus {
+    outline: none;
+    border-color: #cdc832;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Contenedor de botones */
+.botones-accion {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+/* Botón Guardar (usando el verde de tu hero-cta) */
+form[id="formTorneo"] button[type="submit"], 
+.botones-accion button:not(#cancelar) {
+    padding: 10px 30px;
+    background: #043f29;
+    color: white;
+    border: 1px solid #939393;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+form[id="formTorneo"] button[type="submit"]:hover {
+    background: #065a3b;
+    transform: scale(1.05);
+}
+
+/* Botón Cancelar (usando tu estilo rojo de seguridad) */
+#cancelar {
+    background: #7e0e14 !important; /* Rojo oscuro según tu CSS */
+    padding: 10px 30px;
+    border: 1px solid #939393;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+#cancelar a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#cancelar:hover {
+    background: #c91a1a !important;
+}
+
+/* Listado de equipos inferior */
+#equipos {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #939393;
+}
