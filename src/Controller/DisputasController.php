@@ -42,7 +42,7 @@ final class DisputasController extends AbstractController
         $entityManager->flush();
         return new JsonResponse($disputa->getId());
     }
-     #[Route('/disputas/modificar', name: 'creardisputas')]
+     #[Route('/disputas/modificar', name: 'modificardisputas')]
      public function modificarDisputas(){
 
      }

@@ -57,6 +57,7 @@ function cargar(url) {
             if (anadirdisputa) {
                 anadirdisputa.onclick=function() {
                     anadirdis(anadirdisputa.dataset.torneoId);
+                    window.location.reload();
                 }
             }
         })
