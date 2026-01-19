@@ -173,13 +173,15 @@ final class TorneoController extends AbstractController
         $admin=$torneo->getOrganizador();
         $user = $this->getUser();
         $yaSigue = false;
+        $disputas = $torneo->getDisputas();
         if ($user) {
             $yaSigue = $user->getSeguidos()->contains($torneo);
         }
         return $this->render('page/torneos.html.twig', [
             'torneo' => $torneo,
             'admin'  => $admin,
-            'yasigue' => $yaSigue
+            'yasigue' => $yaSigue,
+            'disputas'=> $disputas
         ]);
     }
 }
