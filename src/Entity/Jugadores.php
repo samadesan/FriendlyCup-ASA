@@ -30,10 +30,17 @@ class Jugadores
     #[ORM\ManyToMany(targetEntity: EquipoFantasy::class, mappedBy: 'titulares',)]
     private Collection $equipoFantasies;
 
+    /**
+     * @var Collection<int, JugadorEvento>
+     */
+    #[ORM\OneToMany(targetEntity: JugadorEvento::class, mappedBy: 'jugador')]
+    private Collection $evento;
+
 
     public function __construct()
     {
         $this->equipoFantasies = new ArrayCollection();
+        $this->evento = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -91,5 +98,35 @@ class Jugadores
     public function getEquipoFantasies(): Collection
     {
         return $this->equipoFantasies;
+    }
+
+    /**
+     * @return Collection<int, JugadorEvento>
+     */
+    public function getEvento(): Collection
+    {
+        return $this->evento;
+    }
+
+    public function addEvento(JugadorEvento $evento): static
+    {
+        if (!$this->evento->contains($evento)) {
+            $this->evento->add($evento);
+            $evento->setJugador($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvento(JugadorEvento $evento): static
+    {
+        if ($this->evento->removeElement($evento)) {
+            // set the owning side to null (unless already changed)
+            if ($evento->getJugador() === $this) {
+                $evento->setJugador(null);
+            }
+        }
+
+        return $this;
     }
 }
