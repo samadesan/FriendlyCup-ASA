@@ -7,7 +7,7 @@ use App\Repository\DisputasRepository;
 use App\Repository\EquiposRepository;
 use App\Repository\TorneoRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Proxies\__CG__\App\Entity\Torneo;
+use App\Entity\Torneo;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
