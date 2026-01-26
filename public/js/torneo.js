@@ -50,14 +50,40 @@ function gestionseguidores() {
 }
 function cargar(url) {
     fetch(url)
-        .then(r => r.text())
+        .then(response => response.text())
         .then(html => {
             section.innerHTML = html;
-            let anadirdisputa = document.getElementById("anadirdisputa")
-            if (anadirdisputa) {
-                anadirdisputa.onclick = function () {
-                    anadirdis(anadirdisputa.dataset.torneoId);
-                    window.location.reload();
+            let btnMostrar = document.getElementById("btnmostrarform");
+            let formDisputa = document.getElementById("formnuevadisputa");
+            let btnGuardar = document.getElementById("btnguardardisputa");
+            if (btnMostrar) {
+                btnMostrar.onclick = function () {
+                    formDisputa.style.display = formDisputa.style.display === 'none' ? 'block' : 'none';
+                }
+            }
+            if (btnGuardar) {
+                btnGuardar.onclick = function () {
+                    let equipo1 = document.getElementById("selectequipo1").value;
+                    let equipo2 = document.getElementById("selectequipo2").value;
+                    let torneo = this.dataset.torneoid;
+                    if (!equipo1 || !equipo2) {
+                        alert("Selecciona ambos equipos");
+                        return;
+                    }
+                    if (equipo1 === equipo2) {
+                        alert("Los equipos deben ser diferentes");
+                        return;
+                    }
+                    fetch('/disputas/crear', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            equipo1_id: equipo1,
+                            equipo2_id: equipo2,
+                            torneo_id: torneo
+                        })
+                    }).then(response => response.json())
+                        .then(data => window.location.reload());
                 }
             }
         })

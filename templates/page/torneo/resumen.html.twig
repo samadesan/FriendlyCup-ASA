@@ -1,6 +1,22 @@
 <h2>Resumen</h2>
 {% if app.user == admin %}
-<a id="anadirdisputa" class="btn-secondary" data-torneo-id="{{ torneo.id }}">Añadir disputa</a>
+<a id="btnmostrarform" class="btn-secondary">Añadir disputa</a>
+<div id="formnuevadisputa" style="display:none; margin-top:10px; border:1px solid #ccc; padding:10px;">
+    <select id="selectequipo1">
+        <option value="">Selecciona Equipo 1</option>
+        {% for equipo in torneo.equipos %}
+            <option value="{{ equipo.id }}">{{ equipo.nombre }}</option>
+        {% endfor %}
+    </select>
+    <span>VS</span>
+    <select id="selectequipo2">
+        <option value="">Selecciona Equipo 2</option>
+        {% for equipo in torneo.equipos %}
+            <option value="{{ equipo.id }}">{{ equipo.nombre }}</option>
+        {% endfor %}
+    </select>
+    <button id="btn-guardar-disputa" class="btn-primary" data-torneo-id="{{ torneo.id }}">Guardar</button>
+</div>
 {% endif %}
 {% for disputa in disputas %}
     <p id="disputa">{{disputa.equipo1.nombre}}: {{disputa.resultado}} {{disputa.equipo2.nombre}}</p>
