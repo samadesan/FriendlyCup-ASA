@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Equipos;
 use App\Entity\Jugadores;
+use App\Entity\JugadorEvento;
 use App\Form\EquipoFormType;
 use App\Form\JugadorFormType;
+use App\Repository\EventoRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,7 +56,7 @@ final class EquipoController extends AbstractController
     ]);
     }
     #[Route('/equipo/{id}/crearjugador', name: 'crearjugador')]
-    public function crearJugador(int $id,ManagerRegistry $doctrine,Request $request): Response {
+    public function crearJugador(int $id,ManagerRegistry $doctrine,Request $request,EventoRepository $evento): Response {
         $entityManager = $doctrine->getManager();
         $equipoRepo = $doctrine->getRepository(Equipos::class);
         $equipo = $equipoRepo->find($id);
@@ -74,6 +76,15 @@ final class EquipoController extends AbstractController
                 'id' => $equipo->getId()
             ]);
         }
+        $eventos = $evento->findAll();
+        foreach ($eventos as $evento) {
+            $eventojugador=new JugadorEvento();
+            $eventojugador->setEvento($evento);
+            $eventojugador->setCantidad(0);
+            $eventojugador->setJugador($jugador);
+            $entityManager->persist($eventojugador);
+        }
+        $entityManager->flush();
         return $this->render('page/crear-jugador.html.twig', [
             'formulario' => $formulario->createView(),
             'equipo' => $equipo

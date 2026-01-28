@@ -57,7 +57,7 @@ final class DisputasController extends AbstractController
         return new JsonResponse($disputa->getId());
     }
     #[Route('/disputas/{id}/eliminar', name: 'eliminardisputas')]
-    public function eliminarDisputas(Request $request, EntityManagerInterface $entityManager, DisputasRepository $disputasRepository, int $id): Response
+    public function eliminarDisputas(EntityManagerInterface $entityManager, DisputasRepository $disputasRepository, int $id): Response
     {
         $disputa = $disputasRepository->find($id);
         $torneoId = $disputa->getTorneo()->getId();

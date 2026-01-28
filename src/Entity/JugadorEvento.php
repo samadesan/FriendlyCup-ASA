@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\JugadorEventoRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Evento;
 
 #[ORM\Entity(repositoryClass: JugadorEventoRepository::class)]
 class JugadorEvento
@@ -19,7 +20,7 @@ class JugadorEvento
 
     #[ORM\ManyToOne(inversedBy: 'jugadorEventos')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?PuntuajeEvento $evento = null;
+    private ?Evento $evento = null;
 
     #[ORM\Column]
     private ?int $cantidad = null;
@@ -41,12 +42,12 @@ class JugadorEvento
         return $this;
     }
 
-    public function getEvento(): ?PuntuajeEvento
+    public function getEvento(): ?Evento
     {
         return $this->evento;
     }
 
-    public function setEvento(?PuntuajeEvento $evento): static
+    public function setEvento(?Evento $evento): static
     {
         $this->evento = $evento;
 

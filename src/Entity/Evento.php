@@ -3,12 +3,12 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\PuntuajeEventoRepository;
+use App\Repository\EventoRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints\Collection;
 
-#[ORM\Entity(repositoryClass: PuntuajeEventoRepository::class)]
-class PuntuajeEvento
+#[ORM\Entity(repositoryClass: EventoRepository::class)]
+class Evento
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

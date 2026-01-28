@@ -1,14 +1,10 @@
 let presupuesto = document.getElementById("budget");
-if (presupuesto) {
-    let maximo = Number(presupuesto.dataset.minimo);
-    let presupuestoActual = Number(presupuesto.dataset.valor);
-    let idEquipo = presupuesto.dataset.id;
-}
-
+let maximo = Number(presupuesto.dataset.minimo);
+let presupuestoActual = Number(presupuesto.dataset.valor);
+let idEquipo = presupuesto.dataset.id;
 let tablas = document.querySelectorAll('.torneo-content .stats-table tbody');
 let tablaJugadores = tablas[0];
 let tablaMercado = tablas[1];
-
 let admin = document.getElementById("btnAnadirUsuario");
 if (admin) admin.onclick = mostrarClave;
 
